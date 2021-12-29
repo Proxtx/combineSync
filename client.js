@@ -1,4 +1,4 @@
-let pathToRebuild = window.rebuild ? window.rebuild : "/rebuild.js";
+let pathToRebuild = window.rebuild ? window.rebuild : "/compare.js";
 import { rebuild } from pathToRebuild;
 
 export const createSyncObject = async (object, call, loopTime=5000, awaitCall = null) => {
