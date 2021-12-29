@@ -1,0 +1,23 @@
+{
+  "name": "combinesync",
+  "version": "1.0.0",
+  "description": "Sync objects with combine (without websockets)",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Proxtx/combineSync.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Proxtx/combineSync/issues"
+  },
+  "homepage": "https://github.com/Proxtx/combineSync#readme",
+  "dependencies": {
+    "@proxtx/compare": "^1.0.2"
+  }
+}
