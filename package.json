@@ -1,5 +1,5 @@
 {
-  "name": "combinesync",
+  "name": "@proxtx/combinesync",
   "version": "1.0.0",
   "description": "Sync objects with combine (without websockets)",
   "main": "main.js",
