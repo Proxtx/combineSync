@@ -6,15 +6,13 @@ let updateListenersEnabled = true;
 
 export const returnObject = (object, prevHash) => {
   object = JSON.stringify(object);
+  if (!objects[hash(object)]) {
+    objects[hash(object)] = object;
+  }
   if (objects[prevHash]) {
     return compare(objects[prevHash], object);
   }
-  objects[hash(object)] = object;
-  for (let i in updateListeners) {
-    updateListeners[i]();
-  }
-  updateListeners = [];
-  return object;
+  return compare("", object);
 };
 
 export const awaitChange = async () => {
@@ -25,6 +23,13 @@ export const awaitChange = async () => {
 
 export const setUpdateListeners = (enabled) =>
   (updateListenersEnabled = enabled);
+
+export const objectUpdate = () => {
+  for (let i in updateListeners) {
+    updateListeners[i]();
+  }
+  updateListeners = [];
+};
 
 const hash = (string) => {
   var hash = 0,

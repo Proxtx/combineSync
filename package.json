@@ -1,6 +1,6 @@
 {
   "name": "@proxtx/combinesync",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Sync objects with combine (without websockets)",
   "main": "main.js",
   "type": "module",

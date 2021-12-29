@@ -11,7 +11,12 @@ export const createSyncObject = async (
   while (true) {
     updateObjKeepingRef(
       object,
-      rebuild(JSON.stringify(object), await call(hash(JSON.stringify(object))))
+      JSON.parse(
+        rebuild(
+          JSON.stringify(object),
+          await call(hash(JSON.stringify(object)))
+        )
+      )
     );
     if (doAwaitCall && awaitCall) {
       let result = await awaitCall();
@@ -34,6 +39,10 @@ const updateObjKeepingRef = (sourceObj, newObj) => {
     } else {
       sourceObj[key] = newObj[key];
     }
+  });
+
+  Object.keys(sourceObj).forEach((key) => {
+    if (!newObj[key]) delete sourceObj[key];
   });
 };
 
