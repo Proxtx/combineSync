@@ -2,7 +2,7 @@ import { compare } from "@proxtx/compare";
 
 let objects = {};
 let updateListeners = [];
-let updateListeners = true;
+let updateListenersEnabled = true;
 
 export const returnObject = (object, prevHash) => {
   object = JSON.stringify(object);
@@ -18,12 +18,13 @@ export const returnObject = (object, prevHash) => {
 };
 
 export const awaitChange = async () => {
-  if (!updateListeners) return { success: false };
+  if (!updateListenersEnabled) return { success: false };
   await new Promise((resolve) => updateListeners.push(resolve));
   return { success: true };
 };
 
-export const setUpdateListeners = (enabled) => (updateListeners = enabled);
+export const setUpdateListeners = (enabled) =>
+  (updateListenersEnabled = enabled);
 
 const hash = (string) => {
   var hash = 0,
