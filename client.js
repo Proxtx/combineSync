@@ -1,16 +1,23 @@
-let pathToRebuild = window.rebuild ? window.rebuild : "/compare.js";
-import { rebuild } from pathToRebuild;
+let pathToCompare = window.pathToCompare ? window.pathToCompare : "/compare.js";
+let rebuild = (await import(pathToCompare)).rebuild;
 
-export const createSyncObject = async (object, call, loopTime=5000, awaitCall = null) => {
+export const createSyncObject = async (
+  object,
+  call,
+  loopTime = 5000,
+  awaitCall = null
+) => {
   let doAwaitCall = true;
   while (true) {
-    updateObjKeepingRef(object, rebuild(JSON.stringify(object), (await call(hash(JSON.stringify(object))))));
-    if(doAwaitCall && awaitCall) {
+    updateObjKeepingRef(
+      object,
+      rebuild(JSON.stringify(object), await call(hash(JSON.stringify(object))))
+    );
+    if (doAwaitCall && awaitCall) {
       let result = await awaitCall();
-      if(!result.success) doAwaitCall = false;
-    }
-    else {
-      await new Promise(resolve => setTimeout(resolve, loopTime))
+      if (!result.success) doAwaitCall = false;
+    } else {
+      await new Promise((resolve) => setTimeout(resolve, loopTime));
     }
   }
 };
