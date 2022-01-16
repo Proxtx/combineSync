@@ -1,6 +1,13 @@
 let pathToCompare = window.pathToCompare ? window.pathToCompare : "/compare.js";
 let rebuild = (await import(pathToCompare)).rebuild;
 
+/**
+ * Syncs an object with the server.
+ * @param {Object} object The object which should be updated
+ * @param {Array} call The request to the server which should execute the return object function via combine
+ * @param {Integer} loopTime Time until the function refreshes the object
+ * @param {Boolean} awaitCall Enable or Disable the awaitCall functionality
+ */
 export const createSyncObject = async (
   object,
   call,
