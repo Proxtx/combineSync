@@ -8,14 +8,8 @@ let rebuild = (await import(pathToCompare)).rebuild;
  * @param {Integer} loopTime Time until the function refreshes the object
  * @param {Boolean} awaitCall Enable or Disable the awaitCall functionality
  */
-export const createSyncObject = async (
-  object,
-  call,
-  loopTime = 5000,
-  awaitCall = null
-) => {
-  let doAwaitCall = true;
-  while (true) {
+export const createSyncObject = async (object, call, loopTime = false) => {
+  do {
     updateObjKeepingRef(
       object,
       JSON.parse(
@@ -25,13 +19,8 @@ export const createSyncObject = async (
         )
       )
     );
-    if (doAwaitCall && awaitCall) {
-      let result = await awaitCall();
-      if (!result.success) doAwaitCall = false;
-    } else {
-      await new Promise((resolve) => setTimeout(resolve, loopTime));
-    }
-  }
+    if (loopTime) await new Promise((resolve) => setTimeout(resolve, loopTime));
+  } while (true && loopTime);
 };
 
 const updateObjKeepingRef = (sourceObj, newObj) => {

@@ -1,8 +1,6 @@
 import { compare } from "@proxtx/compare";
 
 let objects = {};
-let updateListeners = [];
-let updateListenersEnabled = true;
 
 /**
  * Compares the new object with the old object if stored
@@ -19,33 +17,6 @@ export const returnObject = (object, prevHash) => {
     return compare(objects[prevHash], object);
   }
   return compare("", object);
-};
-
-/**
- * Does not resolve the promise until a change happens
- * @returns Success
- */
-export const awaitChange = async () => {
-  if (!updateListenersEnabled) return { success: false };
-  await new Promise((resolve) => updateListeners.push(resolve));
-  return { success: true };
-};
-
-/**
- * Enable or disable update listeners
- * @param {Boolean} enabled Enable update listeners
- */
-export const setUpdateListeners = (enabled) =>
-  (updateListenersEnabled = enabled);
-
-/**
- * Resolves all change listeners
- */
-export const objectUpdate = () => {
-  for (let i in updateListeners) {
-    updateListeners[i]();
-  }
-  updateListeners = [];
 };
 
 const hash = (string) => {
